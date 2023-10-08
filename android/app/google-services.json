@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1057674931083",
+    "project_id": "project-temples",
+    "storage_bucket": "project-temples.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057674931083:android:b67399a7966b4d3da31d8e",
+        "android_client_info": {
+          "package_name": "com.temples.project_temples"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJKt7AbuOZpSKFS27tEPf0PGrTRVFiQNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
