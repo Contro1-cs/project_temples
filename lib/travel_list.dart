@@ -70,6 +70,10 @@ class _TravelListState extends State<TravelList>
     });
   }
 
+  void _stopTimer() {
+    _timer?.cancel();
+  }
+
   action() {
     if (_progressValue == 5) {
       _progressValue = 0.0;
@@ -79,15 +83,6 @@ class _TravelListState extends State<TravelList>
         Get.back();
         index = 0;
       }
-    }
-  }
-
-  void _pauseResumeTimer() {
-    if (_timer != null) {
-      _timer!.cancel();
-      _timer = null;
-    } else {
-      _startTimer();
     }
   }
 
@@ -111,7 +106,7 @@ class _TravelListState extends State<TravelList>
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _stopTimer();
     super.dispose();
   }
 
@@ -304,14 +299,14 @@ class _TravelListState extends State<TravelList>
                               ),
                             ),
                             onPressed: () {
-                              Get.to(() => {
-                                    _pauseResumeTimer,
-                                    MoreInfoPage(
-                                      title: travel_list[index]['name']!
-                                          .toUpperCase(),
-                                      desc: description,
-                                    ),
-                                  });
+                              Get.to(
+                                () => MoreInfoPage(
+                                  title:
+                                      travel_list[index]['name']!.toUpperCase(),
+                                  desc: description,
+                                ),
+                              );
+                              dispose();
                             },
                             icon: const Icon(
                               Icons.info_outline,
