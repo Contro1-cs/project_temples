@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_temples/main.dart';
@@ -19,6 +21,7 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
+
     animationComplete = false;
   }
 
@@ -140,7 +143,7 @@ class _TrendingPageState extends State<TrendingPage> {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )

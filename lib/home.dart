@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
         'img': 'assets/spring-trips.png',
         'path': const TravelList(
           title: 'Spring Trips',
+          img: 'assets/spring-trips.png',
         ),
       },
       {
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
         'img': 'assets/fall-trips.png',
         'path': const TravelList(
           title: 'Fall Trips',
+          img: 'assets/fall-trips.png',
         ),
       },
       {
@@ -46,6 +48,7 @@ class _HomePageState extends State<HomePage> {
         'img': 'assets/winter-trips.png',
         'path': const TravelList(
           title: 'winter Trips',
+          img: 'assets/winter-trips.png',
         ),
       },
       {
@@ -53,6 +56,7 @@ class _HomePageState extends State<HomePage> {
         'img': 'assets/hiking-trips.png',
         'path': const TravelList(
           title: 'hiking Trips',
+          img: 'assets/hiking-trips.png',
         ),
       },
       {
@@ -60,6 +64,7 @@ class _HomePageState extends State<HomePage> {
         'img': 'assets/family-trips.png',
         'path': const TravelList(
           title: 'family Trips',
+          img: 'assets/family-trips.png',
         ),
       },
       {
@@ -67,6 +72,7 @@ class _HomePageState extends State<HomePage> {
         'img': 'assets/veteran-trips.png',
         'path': const TravelList(
           title: 'Veteran Trips',
+          img: 'assets/veteran-trips.png',
         ),
       },
     ];
@@ -91,6 +97,7 @@ class _HomePageState extends State<HomePage> {
                       margin: const EdgeInsets.symmetric(vertical: 5),
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
+                        border: Border.all(color: darkGreen, width: 0.2),
                         color: lightGreen,
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
@@ -233,7 +240,7 @@ class _HomePageState extends State<HomePage> {
                         Get.to(
                           () => page,
                           transition: Transition.cupertino,
-                          duration: const Duration(milliseconds: 800),
+                          duration: const Duration(milliseconds: 650),
                         );
                       },
                     );
