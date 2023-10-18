@@ -1,10 +1,11 @@
-import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_temples/info_pages/more_info.dart';
 import 'package:project_temples/main.dart';
+import 'package:pausable_timer/pausable_timer.dart';
 
 class TravelList extends StatefulWidget {
   const TravelList({
@@ -21,9 +22,8 @@ class TravelList extends StatefulWidget {
 
 String description =
     'Lorem ipsum dolor sit amet consectetur. Felis facilisi tristique scelerisque quam curabitur eget tortor nibh facilisi. Urna quis accumsan scelerisque non. Ut sed et nulla ultrices. Sit bibendum ultrices morbi pellentesque dolor velit. Ligula ullamcorper semper consequat quis duis. Molestie mattis urna a fusce quis tincidunt. Mauris justo nec auctor vitae scelerisque adipiscing aliquet amet. Pretium donec sed pharetra id quis etiam faucibus. Nulla posuere nibh consectetur habitant nisi dolor odio egestas';
-bool _isTimerPaused = false;
 
-var travel_list = [
+var travelList = [
   {
     'name': 'Dagdusheth 1',
     'city': 'Pune',
@@ -57,21 +57,72 @@ class _TravelListState extends State<TravelList>
     with SingleTickerProviderStateMixin {
   double _progressValue = 0.0;
   int index = 0;
-  Timer? _timer;
+  int count = 1;
+  late PausableTimer _timer;
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _progressValue += 1.0;
-        action();
-      });
-    });
+    _timer = PausableTimer(
+      const Duration(seconds: 5),
+      () {
+        setState(() {
+          if (count == 1) {
+            Get.back();
+          } else {
+            count--;
+            index++;
+          }
+        });
+        if (count > 0) {
+          _timer
+            ..reset()
+            ..start();
+        }
+      },
+    )..start();
   }
 
-  void _stopTimer() {
-    _timer?.cancel();
+  void _pauseTimer() {
+    _timer.pause();
+    _animationController.stop();
+  }
+
+  void _nextPage() {
+    // Stop the timer and reset progress
+    _timer.cancel();
+    _timer.reset();
+    _animationController.reset();
+
+    setState(() {
+      count--;
+      index++;
+      if (index >= travelList.length) {
+        Get.back();
+        index = 0;
+      }
+    });
+    _timer = PausableTimer(
+      const Duration(seconds: 5),
+      () {
+        setState(() {
+          if (count == 1) {
+            Get.back();
+          } else {
+            count--;
+            index++;
+          }
+        });
+        if (count > 0) {
+          _timer
+            ..reset()
+            ..start();
+        }
+      },
+    )..start();
+
+    // Start the timer and animation again
+    _animationController.forward();
   }
 
   action() {
@@ -79,11 +130,11 @@ class _TravelListState extends State<TravelList>
       _progressValue = 0.0;
       index++;
 
-      if (index >= travel_list.length) {
+      if (index >= travelList.length) {
         Get.back();
         index = 0;
       }
-    }
+    } else {}
   }
 
   @override
@@ -102,11 +153,13 @@ class _TravelListState extends State<TravelList>
       }
     });
     _startTimer();
+    count = travelList.length;
   }
 
   @override
   void dispose() {
-    _stopTimer();
+    _timer.reset();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -240,7 +293,7 @@ class _TravelListState extends State<TravelList>
                                 ),
                               ),
                               Text(
-                                travel_list[index]['name']!.toUpperCase(),
+                                travelList[index]['name']!.toUpperCase(),
                                 textAlign: TextAlign.start,
                                 style: GoogleFonts.leagueSpartan(
                                   shadows: [
@@ -264,7 +317,7 @@ class _TravelListState extends State<TravelList>
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    travel_list[index]['description']!,
+                    travelList[index]['description']!,
                     style: GoogleFonts.leagueSpartan(
                       color: Colors.black,
                       height: 1.1,
@@ -302,11 +355,13 @@ class _TravelListState extends State<TravelList>
                               Get.to(
                                 () => MoreInfoPage(
                                   title:
-                                      travel_list[index]['name']!.toUpperCase(),
+                                      travelList[index]['name']!.toUpperCase(),
                                   desc: description,
                                 ),
+                              )!
+                                  .then(
+                                (value) => _pauseTimer(),
                               );
-                              dispose();
                             },
                             icon: const Icon(
                               Icons.info_outline,
@@ -333,7 +388,9 @@ class _TravelListState extends State<TravelList>
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              _nextPage();
+                            },
                             icon: const Icon(
                               Icons.arrow_circle_right_outlined,
                               color: Colors.white,
