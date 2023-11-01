@@ -7,24 +7,18 @@ import 'package:project_temples/main.dart';
 import 'package:project_temples/model/temple.dart';
 import 'package:project_temples/widgets/trips_info.dart';
 
-class TravelList extends StatefulWidget {
-  const TravelList({
+class TrendingTrips extends StatefulWidget {
+  const TrendingTrips({
     super.key,
-    required this.title,
-    required this.img,
-    required this.trending,
   });
-  final String title;
-  final String img;
-  final bool trending;
 
   @override
-  State<TravelList> createState() => _TravelListState();
+  State<TrendingTrips> createState() => _TrendingTripsState();
 }
 
 late DocumentSnapshot<Object?> templeDoc;
 
-class _TravelListState extends State<TravelList>
+class _TrendingTripsState extends State<TrendingTrips>
     with SingleTickerProviderStateMixin {
   int count = 0;
   late AnimationController _animationController;
@@ -84,7 +78,7 @@ class _TravelListState extends State<TravelList>
             child: Stack(
               children: [
                 Image.asset(
-                  widget.img,
+                  'assets/hiking-trips.png',
                   height: 150,
                   fit: BoxFit.cover,
                 ),
@@ -120,7 +114,7 @@ class _TravelListState extends State<TravelList>
                       ),
                       const SizedBox(width: 15),
                       Text(
-                        widget.title.toUpperCase(),
+                        'trending'.toUpperCase(),
                         style: GoogleFonts.leagueSpartan(
                           color: Colors.white,
                           fontSize: 35,
@@ -147,9 +141,10 @@ class _TravelListState extends State<TravelList>
             },
           ),
           const SizedBox(height: 15),
+
           const Expanded(
             child: TripsList(
-              trending: false,
+              trending: true,
             ),
           ),
           Container(

@@ -1,8 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_temples/main.dart';
+import 'package:project_temples/travel_list.dart';
+import 'package:project_temples/widgets/trending_trips.dart';
 
 class TrendingPage extends StatefulWidget {
   const TrendingPage({super.key});
@@ -133,7 +133,14 @@ class _TrendingPageState extends State<TrendingPage> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const TrendingTrips(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Explore now'.toUpperCase(),
                         style: GoogleFonts.leagueSpartan(

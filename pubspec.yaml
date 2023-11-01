@@ -19,7 +19,9 @@ dependencies:
   flutter_svg: ^2.0.7
   email_otp: ^2.0.1
   url_launcher: ^6.1.14
-  pausable_timer: ^2.0.0+1
+  pausable_timer: ^3.1.0+3
+  cloud_firestore: ^4.12.1
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:

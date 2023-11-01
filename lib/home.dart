@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_temples/main.dart';
+import 'package:project_temples/planner/planner.dart';
 import 'package:project_temples/travel_list.dart';
 import 'package:project_temples/trending_page.dart';
 import 'package:project_temples/widgets/seasonal_cards.dart';
@@ -33,6 +34,7 @@ class _HomePageState extends State<HomePage> {
         'path': const TravelList(
           title: 'Spring Trips',
           img: 'assets/spring-trips.png',
+          trending: false,
         ),
       },
       {
@@ -41,6 +43,7 @@ class _HomePageState extends State<HomePage> {
         'path': const TravelList(
           title: 'Fall Trips',
           img: 'assets/fall-trips.png',
+          trending: false,
         ),
       },
       {
@@ -49,6 +52,7 @@ class _HomePageState extends State<HomePage> {
         'path': const TravelList(
           title: 'winter Trips',
           img: 'assets/winter-trips.png',
+          trending: false,
         ),
       },
       {
@@ -57,6 +61,7 @@ class _HomePageState extends State<HomePage> {
         'path': const TravelList(
           title: 'hiking Trips',
           img: 'assets/hiking-trips.png',
+          trending: false,
         ),
       },
       {
@@ -65,6 +70,7 @@ class _HomePageState extends State<HomePage> {
         'path': const TravelList(
           title: 'family Trips',
           img: 'assets/family-trips.png',
+          trending: false,
         ),
       },
       {
@@ -73,12 +79,30 @@ class _HomePageState extends State<HomePage> {
         'path': const TravelList(
           title: 'Veteran Trips',
           img: 'assets/veteran-trips.png',
+          trending: false,
         ),
       },
     ];
 
     return Scaffold(
       backgroundColor: const Color(0xffF4FFE9),
+      floatingActionButton: Transform.scale(
+        scale: 1.2,
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const PlannerPage(),
+              ),
+            );
+          },
+          child: Transform.scale(
+            scale: 1.2,
+            child: const Icon(Icons.mode_of_travel_outlined),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
